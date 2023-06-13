@@ -18,8 +18,10 @@ app.use(bodyParser.urlencoded({extended: true }));
 app.use(bodyParser.json());
 
 //register the enpoints
+const auth = require("./routes/auth.routes");
 const users = require("./routes/user.routes");
 app.use("/api/v1/users", users);
+app.use("/api/v1/", auth);
 
 app.listen(port, () => {
     console.log(`Application is listening at port ${port}`);

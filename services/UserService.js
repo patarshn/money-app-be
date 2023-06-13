@@ -1,9 +1,9 @@
 const User = require('../models/User')
-
 module.exports = {
     getUsers : async () => {
         try{
             const users = await User.find();
+            // const users = await User.find().select("+password");
             return users
         }catch(err){
             console.log(`Could not fetch users ${err}`)
