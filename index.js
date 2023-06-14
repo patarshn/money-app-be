@@ -20,7 +20,9 @@ app.use(bodyParser.json());
 //register the enpoints
 const auth = require("./routes/auth.routes");
 const users = require("./routes/user.routes");
+const finances = require("./routes/finance.routes");
 app.use("/api/v1/users", users);
+app.use("/api/v1/finances", finances);
 app.use("/api/v1/", auth);
 
 app.listen(port, () => {
