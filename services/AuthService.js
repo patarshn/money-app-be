@@ -14,7 +14,7 @@ module.exports = {
                 name: users.name,
                 email: users.email
             }
-            const token = jwt.sign(data, );
+            const token = jwt.sign(data, process.env.JWT_SECRET);
             return token
         }catch(err){
             console.log(`Could not fetch users ${err}`)
@@ -26,15 +26,18 @@ module.exports = {
             const bearer = req.headers.authorization
             const token = bearer.split(" ")[1]
             var decoded = jwt.verify(token, process.env.JWT_SECRET);
-            if(decoded) return done(null, decoded);
+            if(decoded) {
+                res.locals.userId = decoded.id
+                return done(null, decoded);
+            }
         }catch(err){
             return done(res.status(401).json({success: false, message: "Unauthorize", data: null}));
         }
     },
 
-    profile : async () => {
+    profile : async (userId) => {
         try{
-            const users = await User.find();
+            const users = await User.findById(userId);
             return users
         }catch(err){
             console.log(`Could not fetch users ${err}`)

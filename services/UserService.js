@@ -35,7 +35,7 @@ module.exports = {
         }
     },
 
-    updateUser : async (id,{name, email ,password}) => {
+    updateUser : async ({id, name, email ,password}) => {
         try{
             
             const updateUser = await User.findOneAndUpdate({_id : id}, {

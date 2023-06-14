@@ -35,7 +35,7 @@ module.exports = {
     updateUser : async (req, res) => {
         try{
             let id = req.params.userId || {};
-            const response = await UserService.updateUser(id, req.body);
+            const response = await UserService.updateUser({id, ...req.body});
             if(!response) return res.status(404).json({success: false, message: "User not found!", data: null});
             return res.status(200).json({success: true, message: "Success update user", data: null});
         }catch(err){
