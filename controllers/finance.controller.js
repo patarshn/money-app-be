@@ -23,6 +23,16 @@ module.exports = {
         }
     },
 
+    getFinanceSum : async (req, res) => {
+        try{
+            const response = await FinanceService.getFinanceSum();
+            if(!response) return res.status(400).json({success: false, message: "There are no finance create yet!", data: null})
+            return res.json({success: true, message: "Success get finance summary", data: response})
+        }catch(err){
+            return res.status(500).json({success: false, message: err, data: null});
+        }
+    },
+
     addFinance : async (req, res) => {
         try{
             const created_by = res.locals.userId

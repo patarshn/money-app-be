@@ -18,22 +18,10 @@ module.exports = {
             return token
         }catch(err){
             console.log(`Could not fetch users ${err}`)
+            throw err;
         }
     },
-
-    validate : async (req, res, done) => {
-        try{
-            const bearer = req.headers.authorization
-            const token = bearer.split(" ")[1]
-            var decoded = jwt.verify(token, process.env.JWT_SECRET);
-            if(decoded) {
-                res.locals.userId = decoded.id
-                return done(null, decoded);
-            }
-        }catch(err){
-            return done(res.status(401).json({success: false, message: "Unauthorize", data: null}));
-        }
-    },
+    
 
     profile : async (userId) => {
         try{

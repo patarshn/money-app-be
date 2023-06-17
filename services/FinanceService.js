@@ -18,6 +18,21 @@ module.exports = {
         }
     },
 
+    getFinanceSum : async () => {
+        try{
+            const finances = await Finance.aggregate([{
+                $group: {
+                    _id: {type: "$type"},
+                    sum: {$sum:"$nominal"}
+                }
+            }]);
+            return finances;
+        }catch(err){
+            console.log(err);
+            console.log(`Could not fetch finances ${err}`)
+        }
+    },
+
     addFinance : async ({name, date, nominal, description, source, category, type, created_by}) => {
         try{
             let created_at = Date.now();
