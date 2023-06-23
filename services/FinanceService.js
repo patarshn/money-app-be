@@ -26,7 +26,16 @@ module.exports = {
                     sum: {$sum:"$nominal"}
                 }
             }]);
-            return finances;
+            
+            var data = {};
+            finances.map((f) => {
+                if(f._id.type == "D"){
+                    data.pengeluaran = f.sum
+                }else if(f._id.type == "K"){
+                    data.pemasukan = f.sum
+                }
+            });
+            return data;
         }catch(err){
             console.log(err);
             console.log(`Could not fetch finances ${err}`)

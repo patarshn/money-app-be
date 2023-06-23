@@ -32,8 +32,12 @@ const FinanceSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  __v:{
+    type: Number,
+    select: false,
   }
-});
+}, { versionKey: false });
 
 const Finance = mongoose.model("Finance", FinanceSchema);
 module.exports = Finance;
